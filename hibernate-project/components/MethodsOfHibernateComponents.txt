@@ -1,0 +1,26 @@
+
+-----Configuration------
+1.Configuration configure();
+2.Configuration addClass(Class persistentClass);
+3.SessionFactory buildSessionFactory(ServiceRegistry serviceRegistry);
+
+-----SessionFactory-----
+1. Session openSession(Connection connection);
+2. void close();
+
+-----Session-----
+1.Transaction beginTransaction();
+2.Transaction getTransaction();
+3.Serializable save(Object object);
+4.void update(Object object);
+5.Object get(Class class,Serializable id);
+6.Object load(Class theClass,Serializable id);
+7.void delete(Object object);
+8.Connection close();
+9.Query createQuery(String queryString);
+10.SQLQuery createSQLQuery(String queryString);
+11.Criteria createCriteria(Class persistentClass);
+
+-----Transaction-----
+1.void commit();
+2.void rollBack();
