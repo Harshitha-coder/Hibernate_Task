@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.xworkz.soap.constant.SoapType;
+import com.xworkz.soap.constant.*;
 
 @Entity
 @Table(name = "soap_table")
