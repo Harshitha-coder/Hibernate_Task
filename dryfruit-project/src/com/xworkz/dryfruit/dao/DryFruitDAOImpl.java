@@ -25,4 +25,15 @@ public class DryFruitDAOImpl implements DryFruitDAO {
 		session.close();
 		return id;
 	}
+
+	@Override
+	public DryFruitDTO readById(int pk) {
+		Configuration configuration = new Configuration();
+		configuration.configure();
+		configuration.addAnnotatedClass(DryFruitDTO.class);
+		SessionFactory factory = configuration.buildSessionFactory();
+		Session session = factory.openSession();
+		DryFruitDTO fromDb = session.get(DryFruitDTO.class, pk);
+		return fromDb;
+	}
 }
