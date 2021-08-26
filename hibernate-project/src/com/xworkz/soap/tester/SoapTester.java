@@ -16,6 +16,9 @@ public class SoapTester {
 		SoapDAO dao = new SoapDAOImpl();
 		//dao.save(dto);
 		dao.save(dto1);
+		
+		SoapDTO read=dao.readById(1);
+		System.out.println(read);
 	}
 
 }

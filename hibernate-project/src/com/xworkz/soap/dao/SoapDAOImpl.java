@@ -12,9 +12,7 @@ public class SoapDAOImpl implements SoapDAO {
 	@Override
 	public int save(SoapDTO dto) {
 
-		Configuration configuration = new Configuration();
-		configuration.configure();
-		configuration.addAnnotatedClass(SoapDTO.class);
+		Configuration configuration = createdConfiguration();
 		SessionFactory factory = configuration.buildSessionFactory();
 		Session session = factory.openSession();
 		int id = (int) session.save(dto);
@@ -24,5 +22,21 @@ public class SoapDAOImpl implements SoapDAO {
 		factory.close();
 		session.close();
 		return id;
+	}
+	private Configuration createdConfiguration() {
+		Configuration configuration = new Configuration();
+		configuration.configure();
+		configuration.addAnnotatedClass(SoapDTO.class);
+		return configuration;
+	}
+	@Override
+	public SoapDTO readById(int pk) {
+		Configuration configuration = createdConfiguration();
+		SessionFactory factory = configuration.buildSessionFactory();
+		Session session = factory.openSession();
+		SoapDTO idFromDb=session.get(SoapDTO.class, pk);
+		factory.close();
+		session.close();
+		return idFromDb;
 	}
 }
