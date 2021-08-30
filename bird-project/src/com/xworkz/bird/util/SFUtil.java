@@ -1,5 +1,6 @@
 package com.xworkz.bird.util;
 
+import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -12,7 +13,12 @@ public class SFUtil {
 	}
 
 	static {
-		Configuration configuration = new Configuration().configure();
-		factory = configuration.buildSessionFactory();
+		try {
+			Configuration configuration = new Configuration().configure();
+			factory = configuration.buildSessionFactory();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
