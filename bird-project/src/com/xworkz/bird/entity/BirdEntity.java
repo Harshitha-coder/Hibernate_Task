@@ -37,10 +37,9 @@ public class BirdEntity implements Serializable{
 		
 	}
 
-	public BirdEntity(int id, String name, String family, int lifeSpan, String country, int hoursOfFlying, String genus,
+	public BirdEntity( String name, String family, int lifeSpan, String country, int hoursOfFlying, String genus,
 			String color, String food, String feathers) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.family = family;
 		this.lifeSpan = lifeSpan;

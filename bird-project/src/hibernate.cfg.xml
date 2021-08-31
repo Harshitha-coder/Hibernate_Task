@@ -8,6 +8,7 @@
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/harshitha_jdbc</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">Harshi@248</property>
+		<property name="hibernate.show_sql">true</property>
 		<mapping class="com.xworkz.bird.entity.BirdEntity"/>			
 	</session-factory>
 </hibernate-configuration>
