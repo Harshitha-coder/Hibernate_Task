@@ -1,5 +1,7 @@
 package com.xworkz.camera.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -10,16 +12,23 @@ import com.xworkz.camera.util.SFUtil;
 public class CameraDAOImpl implements CameraDAO {
 
 	private SessionFactory factory = SFUtil.getFactory();
+	Transaction trans = null;
 
 	@Override
 	public int save(CameraEntity entity) {
+		int id = 0;
 		try (Session session = factory.openSession()) {
-			Transaction tx = session.beginTransaction();
-			int id = (int) session.save(entity);
+			trans = session.beginTransaction();
+			id = (int) session.save(entity);
 			System.out.println(id);
-			tx.commit();
-			return id;
+			trans.commit();
+		} catch (Exception e) {
+			if (trans != null) {
+				trans.rollback();
+			}
+			e.printStackTrace();
 		}
+		return id;
 	}
 
 	@Override
@@ -33,21 +42,60 @@ public class CameraDAOImpl implements CameraDAO {
 	@Override
 	public void updateBrandById(int id, String brand) {
 		try (Session session = factory.openSession()) {
-			Transaction tx = session.beginTransaction();
+			trans = session.beginTransaction();
 			CameraEntity en = session.get(CameraEntity.class, id);
 			en.setBrand(brand);
 			session.update(en);
-			tx.commit();
+			trans.commit();
+		} catch (Exception e) {
+			if (trans != null) {
+				trans.rollback();
+			}
+			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public void deleteById(int id) {
 		try (Session session = factory.openSession()) {
-			Transaction tx = session.beginTransaction();
+			trans = session.beginTransaction();
 			CameraEntity en = session.get(CameraEntity.class, id);
 			session.delete(en);
-			tx.commit();
+			trans.commit();
+		} catch (Exception e) {
+			if (trans != null) {
+				trans.rollback();
+			}
+			e.printStackTrace(); 
+		}
+	}
+
+	@Override
+	public void saveList(List<CameraEntity> entity) {
+		try (Session session = factory.openSession()) {
+			trans = session.beginTransaction();
+			entity.forEach((a) -> session.save(a));
+			trans.commit();
+		} catch (Exception e) {
+			if (trans != null) {
+				trans.rollback();
+			}
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void deleteList(List<CameraEntity> entity) {
+		try (Session session = factory.openSession()) {
+			trans = session.beginTransaction();
+			entity.forEach((a) -> session.delete(a));
+			trans.commit();
+		} catch (Exception e) {
+			if (trans != null) {
+				trans.rollback();
+			}
+			e.printStackTrace();
+
 		}
 	}
 }
